@@ -1,0 +1,18 @@
+apply plugin: 'java'
+apply plugin: 'war'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    def tomcatVersion = '8.0.32'
+    def jerseyVersion = '2.25.1'
+
+    compile group: 'org.apache.tomcat', name: 'tomcat-servlet-api', version: tomcatVersion
+    compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet', version: jerseyVersion
+    compile group: 'org.glassfish.jersey.media', name: 'jersey-media-moxy', version: jerseyVersion
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+}
