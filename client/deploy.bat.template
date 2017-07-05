@@ -1,0 +1,2 @@
+set OUTPUT_DIR=
+call cp -f bundle.js %OUTPUT_DIR%
