@@ -6,19 +6,19 @@ package by.mamont.entity;
  */
 public class Track
 {
-  private String singer;
+  private String artist;
   private String title;
 
 
-  public String getSinger()
+  public String getArtist()
   {
-    return singer;
+    return artist;
   }
 
 
-  public void setSinger(String singer)
+  public void setArtist(String artist)
   {
-    this.singer = singer;
+    this.artist = artist;
   }
 
 

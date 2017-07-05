@@ -6,7 +6,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -37,7 +36,7 @@ public class TrackResource
   private Track createTrack(String singer, String title)
   {
     Track track = new Track();
-    track.setSinger(singer);
+    track.setArtist(singer);
     track.setTitle(title);
     return track;
   }
