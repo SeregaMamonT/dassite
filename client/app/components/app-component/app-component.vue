@@ -1,11 +1,17 @@
+<template>
+<ul>
+  <p>{{ tracks.length == 0 ? "Loading tracks..." : "Your tracks" }}</p>
+  <li v-for="track in tracks">
+	{{ track }}
+  </li>
+</ul>
+</template>
+
+<script>
 import Vue from 'vue';
 import fetch from 'fetch-everywhere';
 
-import template from './app-component-template.html';
-
-
-const AppComponent = Vue.extend({
-  template,
+export default Vue.extend({
 
   data() {
     return {
@@ -17,7 +23,7 @@ const AppComponent = Vue.extend({
   created() {
     this.getData('/rest/tracks/all', (tracks) => {
       this.tracks = tracks;
-    });    
+    });
   },
 
 
@@ -29,7 +35,12 @@ const AppComponent = Vue.extend({
       .catch((e) => console.log(e));
     }
   }
-  
-});
 
-export default AppComponent;
+});
+</script>
+
+<style scoped>
+ul p {
+    color: green;
+}
+</style>

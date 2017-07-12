@@ -11,6 +11,11 @@ var config = {
 
     module: {
         loaders: [
+			{
+				test: /\.vue$/,
+				exclude: /node_modules/,
+				loader: 'vue-loader'
+			},
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
