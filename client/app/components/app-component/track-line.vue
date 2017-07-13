@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <p>{{ artist }}</p>
-    <p>{{ title }}</p>
+  <div class="root">
+    <div class="artist">{{ artist }}</div>
+    <div class="title">{{ title }}</div>
   </div>
 </template>
 
@@ -14,14 +14,20 @@
 </script>
 
 <style scoped>
-  div {
-    border: 1px green solid;
+  .root {
     margin: 0;
     padding: 0;
+    height: 30px;
+    position: relative;
   }
 
-  p {
-    display: inline-block;
-    margin: 3px;
+  .root:hover {
+    border: 2px green solid;
+  }
+
+  .artist, .title {
+    float: left;
+    margin: 0;
+    width: 50%;
   }
 </style>
