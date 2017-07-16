@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "fetch-everywhere": "^1.0.5",
-    "vue": "^2.4.1"
+    "vue": "^2.4.1",
+    "vuex": "^2.3.1"
   }
 }

@@ -6,6 +6,7 @@
                 v-bind:title="track.title"
                 v-bind:key="index"
     />
+    <button v-on:click="addTrack" style="width: 80px; height: 20px;"></button>
   </div>
 </template>
 
@@ -21,16 +22,9 @@
     },
 
 
-    data() {
-      return {
-        tracks: []
-      }
-    },
-
-
     created() {
       this.getData('rest/tracks/all', (tracks) => {
-        this.tracks = tracks;
+        this.$store.commit('loadTracks', tracks);
       });
     },
 
@@ -41,11 +35,19 @@
             .then(resp => resp.json())
             .then(json => callback(json))
             .catch((e) => console.log(e));
+      },
+
+      addTrack() {
+        this.$store.commit('addTrack');
       }
     },
 
 
     computed: {
+      tracks() {
+        return this.$store.state.tracks;
+      },
+
       headerText() {
         return this.tracks.length == 0 ? 'Loading tracks...' : 'Your tracks';
       }
