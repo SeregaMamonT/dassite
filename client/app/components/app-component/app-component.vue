@@ -1,19 +1,19 @@
-<template>
+<template xmlns:v-on="http://www.w3.org/1999/xhtml">
   <div>
     <h3>{{ headerText }}</h3>
     <track-line v-for="(track, index) in tracks"
                 v-bind:artist="track.artist"
                 v-bind:title="track.title"
                 v-bind:key="index"
-    />
+    ></track-line>
     <button v-on:click="addTrack" style="width: 80px; height: 20px;"></button>
   </div>
 </template>
 
 <script>
   import Vue from 'vue';
-  import fetch from 'fetch-everywhere';
   import TrackLine from './track-line.vue';
+  import api from '../../api/services.js'
 
   export default Vue.extend({
 
@@ -23,20 +23,13 @@
 
 
     created() {
-      this.getData('rest/tracks/all', (tracks) => {
+      api.tracks.loadAll((tracks) => {
         this.$store.commit('loadTracks', tracks);
       });
     },
 
 
     methods: {
-      getData(url, callback) {
-        fetch(url)
-            .then(resp => resp.json())
-            .then(json => callback(json))
-            .catch((e) => console.log(e));
-      },
-
       addTrack() {
         this.$store.commit('addTrack');
       }
