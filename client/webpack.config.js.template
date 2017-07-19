@@ -2,10 +2,15 @@ var path = require('path');
 
 var APP_DIR = path.resolve(__dirname, 'app');
 
+var OUTPUT_DIR = '%absolute_path%';
+
 var config = {
+    devtool: 'source-map',
+
     entry: APP_DIR + '/main.js',
+
     output: {
-        path: path.resolve(process.env.OUTPUT_DIR),
+        path: path.resolve(OUTPUT_DIR),
         filename: 'bundle.js'
     },
 

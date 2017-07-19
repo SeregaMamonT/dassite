@@ -23,9 +23,7 @@
 
 
     created() {
-      api.tracks.loadAll((tracks) => {
-        this.$store.commit('loadTracks', tracks);
-      });
+      this.$store.dispatch('loadTracks');
     },
 
 

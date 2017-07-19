@@ -1,6 +1,9 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+
 import AppComponent from './components/app-component/app-component.vue';
+
+import api from './api/services.js'
 
 Vue.use(Vuex);
 
@@ -16,6 +19,15 @@ const store = new Vuex.Store({
 
     addTrack(state) {
       state.tracks = [...state.tracks, { artist: "Muse", title: "Supermassive Black Hole" }];
+    },
+  },
+
+
+  actions: {
+    loadTracks(context) {
+      api.tracks.loadAll((tracks) => {
+        context.commit('loadTracks', tracks);
+      });
     }
   }
 });
