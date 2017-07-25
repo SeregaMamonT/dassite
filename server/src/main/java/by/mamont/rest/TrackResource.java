@@ -4,6 +4,7 @@ import by.mamont.entity.Track;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.LinkedList;
@@ -18,9 +19,9 @@ public class TrackResource
 
   public TrackResource()
   {
-    tracks.add(createTrack("Oomph!", "Augen auf!"));
-    tracks.add(createTrack("Oomph!", "Labyrinth"));
-    tracks.add(createTrack("Rammstein", "Du Riechtst So Gut"));
+    tracks.add(createTrack(0, "Oomph!", "Augen auf!"));
+    tracks.add(createTrack(1, "Oomph!", "Labyrinth"));
+    tracks.add(createTrack(2, "Rammstein", "Du Riechtst So Gut"));
   }
 
 
@@ -33,9 +34,20 @@ public class TrackResource
   }
 
 
-  private Track createTrack(String singer, String title)
+  @GET
+  @Path("{id}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Track getTrack(@PathParam("id") String id)
+  {
+    int index = Integer.parseInt(id);
+    return tracks.get(index);
+  }
+
+
+  private Track createTrack(int id, String singer, String title)
   {
     Track track = new Track();
+    track.setId(id);
     track.setArtist(singer);
     track.setTitle(title);
     return track;

@@ -2,6 +2,7 @@
   <div>
     <h3>{{ headerText }}</h3>
     <track-line v-for="(track, index) in tracks"
+                v-bind:id="track.id"
                 v-bind:artist="track.artist"
                 v-bind:title="track.title"
                 v-bind:key="index"

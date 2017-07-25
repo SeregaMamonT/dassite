@@ -6,6 +6,7 @@ package by.mamont.entity;
  */
 public class Track
 {
+  private int id;
   private String artist;
   private String title;
 
@@ -31,5 +32,17 @@ public class Track
   public void setTitle(String title)
   {
     this.title = title;
+  }
+
+
+  public int getId()
+  {
+    return id;
+  }
+
+
+  public void setId(int id)
+  {
+    this.id = id;
   }
 }
