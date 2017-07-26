@@ -3,6 +3,7 @@
     <h3>{{ headerText }}</h3>
     <track-line v-for="(track, index) in tracks"
                 v-bind:track="track"
+                v-bind:index="index + 1"
                 v-bind:key="index"
     ></track-line>
     <button v-on:click="addTrack" style="width: 80px; height: 20px;"></button>

@@ -2,7 +2,7 @@
   <div class="root"
        v-on:click="onClick(track)"
   >
-    <div class="number">{{ track.id }}</div>
+    <div class="number">{{ index }}</div>
     <div class="artist">{{ track.artist }}</div>
     <div class="title">{{ track.title }}</div>
   </div>
@@ -13,7 +13,7 @@
   import api from '../../api/services'
 
   export default Vue.extend({
-    props: ['track'],
+    props: ['track', 'index'],
 
     methods: {
       onClick() {

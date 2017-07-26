@@ -57,7 +57,14 @@ public class TrackResource
   @Produces(MediaType.APPLICATION_JSON)
   public String loadTrack(@PathParam("id") String id)
   {
-    return getEncodedTrack(id);
+    return getTrackAddress(id);
+  }
+
+
+  private String getTrackAddress(String id)
+  {
+    String fileName = resolveTrackName(id);
+    return getStoragePath(fileName);
   }
 
 
@@ -85,7 +92,13 @@ public class TrackResource
 
   private String getTrackFullPath(String fileName)
   {
-    return context.getRealPath("/storage/tracks/" + fileName);
+    return context.getRealPath(getStoragePath(fileName));
+  }
+
+
+  private String getStoragePath(String fileName)
+  {
+    return "storage/tracks/" + fileName;
   }
 
 
