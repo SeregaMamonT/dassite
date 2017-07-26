@@ -1,10 +1,10 @@
 <template xmlns:v-on="http://www.w3.org/1999/xhtml">
   <div class="root"
-       v-on:click="onClick(id)"
+       v-on:click="onClick(track)"
   >
-    <div class="number">{{ id }}</div>
-    <div class="artist">{{ artist }}</div>
-    <div class="title">{{ title }}</div>
+    <div class="number">{{ track.id }}</div>
+    <div class="artist">{{ track.artist }}</div>
+    <div class="title">{{ track.title }}</div>
   </div>
 </template>
 
@@ -13,13 +13,11 @@
   import api from '../../api/services'
 
   export default Vue.extend({
-    props: ['id', 'artist', 'title'],
+    props: ['track'],
 
     methods: {
-      onClick(id) {
-        api.tracks.loadTrack(id, (track) => {
-          console.log(track);
-        });
+      onClick() {
+        this.$store.dispatch('startTrack', this.track.id);
       }
     }
   });
@@ -42,9 +40,11 @@
 
   .artist {
     width: 300px;
+    display: inline-block;
   }
 
   .title {
     width: 300px;
+    display: inline-block;
   }
 </style>

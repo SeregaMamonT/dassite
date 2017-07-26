@@ -9,7 +9,8 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    tracks: []
+    tracks: [],
+    currentTrack: null
   },
 
   mutations: {
@@ -20,6 +21,10 @@ const store = new Vuex.Store({
     addTrack(state) {
       state.tracks = [...state.tracks, { artist: "Muse", title: "Supermassive Black Hole" }];
     },
+
+    setCurrentTrack(state, track) {
+      state.currentTrack = track;
+    }
   },
 
 
@@ -28,6 +33,22 @@ const store = new Vuex.Store({
       api.tracks.loadAll((tracks) => {
         context.commit('loadTracks', tracks);
       });
+    },
+
+    startTrack(context, trackId) {
+      const track = context.state.tracks.find((track) => track.id == trackId);
+
+      api.tracks.loadTrack(trackId, (source) => {
+        const currTrack = { ...track, source: source };
+        context.commit('setCurrentTrack', currTrack);
+      });
+    }
+  },
+
+
+  getters: {
+    getCurrentTrack(state) {
+      return state.currentTrack;
     }
   }
 });
