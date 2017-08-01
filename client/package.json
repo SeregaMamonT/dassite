@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack -p -w",
-    "build": "webpack -d"
+    "build": "webpack -d",
+    "start": "webpack-dev-server"
   },
   "author": "",
   "license": "ISC",
@@ -20,7 +21,8 @@
     "raw-loader": "^0.5.1",
     "vue-loader": "^13.0.1",
     "vue-template-compiler": "^2.3.4",
-    "webpack": "^3.2.0"
+    "webpack": "^3.2.0",
+    "webpack-dev-server": "^2.6.1"
   },
   "dependencies": {
     "fetch-everywhere": "^1.0.5",

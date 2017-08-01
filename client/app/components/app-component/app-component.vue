@@ -39,7 +39,7 @@
 
     computed: {
       tracks() {
-        return this.$store.state.tracks;
+        return this.$store.state.tracks.data;
       },
 
       headerText() {

@@ -1,6 +1,9 @@
 <template xmlns:v-on="http://www.w3.org/1999/xhtml">
-  <div>
-    <div v-on:click="onPlayClick">Off</div>
+  <div
+      v-if="currentTrack"
+      v-on:click="onPlayClick"
+  >
+    {{ isPlaying ? '||' : '>' }}
   </div>
 </template>
 
@@ -18,12 +21,9 @@
 
 
     computed: {
-      track() {
-        return this.$store.state.currentTrack;
-      },
-
       ...mapGetters({
-        currentTrack: 'getCurrentTrack'
+        currentTrack: 'getCurrentTrack',
+        currentTrackSource: 'getCurrentTrackSource'
       })
     },
 
@@ -42,14 +42,16 @@
       pause: function () {
         this.audio.pause();
         this.isPlaying = false;
-      },
+      }
     },
 
 
     watch: {
-      currentTrack(newTrack) {
-        this.audio.src = newTrack.source;
-        this.play();
+      currentTrackSource(source) {
+        if (source) {
+          this.audio.src = source;
+          this.play();
+        }
       }
     }
   });
