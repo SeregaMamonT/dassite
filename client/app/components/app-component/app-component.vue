@@ -6,8 +6,8 @@
                 v-bind:index="index + 1"
                 v-bind:key="index"
     ></track-line>
-    <button v-on:click="addTrack" style="width: 80px; height: 20px;"></button>
     <player></player>
+    <button v-on:click="addTrack" style="width: 80px; height: 20px;"></button>
   </div>
 </template>
 
@@ -53,5 +53,10 @@
 <style scoped>
   h3 {
     color: green;
+  }
+
+  button {
+    position: absolute;
+    bottom: 0;
   }
 </style>

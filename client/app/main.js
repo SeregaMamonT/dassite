@@ -11,12 +11,12 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   modules: {
     tracks: tracksStore,
-    currentTrack: currentTrackStore
+    track: currentTrackStore
   },
 
   getters: {
     getCurrentTrack(state) {
-      return state.currentTrack.data;
+      return state.track.data;
     },
 
     getCurrentTrackSource(state, { getCurrentTrack }) {

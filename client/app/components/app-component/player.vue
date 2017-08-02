@@ -1,9 +1,10 @@
 <template xmlns:v-on="http://www.w3.org/1999/xhtml">
-  <div
-      v-if="currentTrack"
-      v-on:click="onPlayClick"
-  >
-    {{ isPlaying ? '||' : '>' }}
+  <div v-if="track" class="root">
+    <button v-on:click="onPlayClick" class="line">
+      {{ isPlaying ? '||' : '>' }}
+    </button>
+    <div class="artist">{{ track.artist }}</div>
+    <div class="title">{{ track.title }}</div>
   </div>
 </template>
 
@@ -22,8 +23,8 @@
 
     computed: {
       ...mapGetters({
-        currentTrack: 'getCurrentTrack',
-        currentTrackSource: 'getCurrentTrackSource'
+        track: 'getCurrentTrack',
+        trackSource: 'getCurrentTrackSource'
       })
     },
 
@@ -47,7 +48,7 @@
 
 
     watch: {
-      currentTrackSource(source) {
+      trackSource(source) {
         if (source) {
           this.audio.src = source;
           this.play();
@@ -58,5 +59,24 @@
 </script>
 
 <style scoped>
+  .root {
+    overflow: visible;
+    height: 30px;
+  }
+
+  button {
+    width: 30px;
+    display: inline-block;
+  }
+
+  .artist {
+    width: 300px;
+    display: inline-block;
+  }
+
+  .title {
+    width: 300px;
+    display: inline-block;
+  }
 
 </style>

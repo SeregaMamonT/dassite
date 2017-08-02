@@ -11,7 +11,7 @@ export default {
     },
 
     setTrackSource(state, source) {
-      state.data = { ...state, source };
+      state.data = { ...state.data, source };
     }
   },
 

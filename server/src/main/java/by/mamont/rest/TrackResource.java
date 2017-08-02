@@ -27,9 +27,9 @@ public class TrackResource
 
   public TrackResource()
   {
-    tracks.add(createTrack(0, "Oomph!", "Augen auf!"));
-    tracks.add(createTrack(1, "Oomph!", "Labyrinth"));
-    tracks.add(createTrack(2, "Rammstein", "Du Riechtst So Gut"));
+    tracks.add(createTrack(0, "Akute", "Ctrl"));
+    tracks.add(createTrack(1, "Neuro Dubel", "tut.by"));
+    tracks.add(createTrack(2, "Akute", "Naskroz"));
   }
 
 
