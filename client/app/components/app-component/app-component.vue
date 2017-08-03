@@ -7,7 +7,7 @@
                 v-bind:key="index"
     ></track-line>
     <player></player>
-    <button v-on:click="addTrack" style="width: 80px; height: 20px;"></button>
+    <button @click="addTrack"></button>
   </div>
 </template>
 
@@ -39,7 +39,7 @@
 
     computed: {
       tracks() {
-        return this.$store.state.tracks.data;
+        return this.$store.state.tracks.value;
       },
 
       headerText() {
@@ -56,6 +56,8 @@
   }
 
   button {
+    width: 80px;
+    height: 20px;
     position: absolute;
     bottom: 0;
   }

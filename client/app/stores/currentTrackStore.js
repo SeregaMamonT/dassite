@@ -2,16 +2,16 @@ import api from '../api/services.js'
 
 export default {
   state: {
-    data: null
+    value: null
   },
 
   mutations: {
     setCurrentTrack(state, track) {
-      state.data = { ...track };
+      state.value = track;
     },
 
     setTrackSource(state, source) {
-      state.data = { ...state.data, source };
+      state.value = { ...state.value, source };
     }
   },
 

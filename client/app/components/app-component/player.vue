@@ -34,13 +34,12 @@
         this.isPlaying ? this.pause() : this.play();
       },
 
-      play: function () {
+      play() {
         this.audio.play();
         this.isPlaying = true;
       },
 
-
-      pause: function () {
+      pause() {
         this.audio.pause();
         this.isPlaying = false;
       }

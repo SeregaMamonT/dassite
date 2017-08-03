@@ -16,7 +16,7 @@ const store = new Vuex.Store({
 
   getters: {
     getCurrentTrack(state) {
-      return state.track.data;
+      return state.track.value;
     },
 
     getCurrentTrackSource(state, { getCurrentTrack }) {
@@ -25,7 +25,7 @@ const store = new Vuex.Store({
     },
 
     getAllTracks(state) {
-      return state.tracks.data;
+      return state.tracks.value;
     },
 
     getTrackById(state, { getAllTracks }) {
