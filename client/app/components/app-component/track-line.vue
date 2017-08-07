@@ -10,9 +10,9 @@
 
 <script>
   import Vue from 'vue';
-  import api from '../../api/services'
 
   export default Vue.extend({
+
     props: ['track', 'index'],
 
     methods: {

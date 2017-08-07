@@ -1,11 +1,7 @@
 <template xmlns:v-on="http://www.w3.org/1999/xhtml">
   <div>
     <h3>{{ headerText }}</h3>
-    <track-line v-for="(track, index) in tracks"
-                v-bind:track="track"
-                v-bind:index="index + 1"
-                v-bind:key="index"
-    ></track-line>
+    <track-list :tracks="tracks"></track-list>
     <player></player>
     <button @click="addTrack"></button>
   </div>
@@ -13,14 +9,14 @@
 
 <script>
   import Vue from 'vue';
-  import TrackLine from './track-line.vue';
+
+  import TrackList from './track-list.vue';
   import Player from './player.vue';
-  import api from '../../api/services.js'
 
   export default Vue.extend({
 
     components: {
-      'track-line': TrackLine,
+      'track-list': TrackList,
       'player': Player
     },
 

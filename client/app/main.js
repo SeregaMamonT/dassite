@@ -29,7 +29,7 @@ const store = new Vuex.Store({
     },
 
     getTrackById(state, { getAllTracks }) {
-      return (trackId) => getAllTracks.find((track) => track.id == trackId);
+      return (trackId) => getAllTracks.find((track) => track.id === trackId);
     }
   }
 });
