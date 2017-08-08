@@ -23,8 +23,8 @@
 
     computed: {
       ...mapGetters({
-        track: 'getCurrentTrack',
-        trackSource: 'getCurrentTrackSource'
+        track: 'track/getCurrentTrack',
+        trackSource: 'track/getCurrentTrackSource'
       })
     },
 

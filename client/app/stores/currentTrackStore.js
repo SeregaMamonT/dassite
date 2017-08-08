@@ -1,6 +1,8 @@
 import api from '../api/services.js'
 
 export default {
+  namespaced: true,
+
   state: {
     value: null
   },
@@ -16,14 +18,25 @@ export default {
   },
 
   actions: {
-    startTrack({ commit, getters }, trackId) {
-      const track = getters.getTrackById(trackId);
+    startTrack({ commit, rootGetters }, trackId) {
+      const getTrackById = rootGetters["tracks/getTrackById"];
 
-      commit('setCurrentTrack', track);
+      commit('setCurrentTrack', getTrackById(trackId));
 
       api.tracks.loadTrack(trackId, (source) => {
         commit('setTrackSource', source);
       });
     }
   },
+
+  getters: {
+    getCurrentTrack(state) {
+      return state.value;
+    },
+
+    getCurrentTrackSource(state, { getCurrentTrack }) {
+      let currentTrack = getCurrentTrack;
+      return currentTrack && currentTrack.source;
+    }
+  }
 };

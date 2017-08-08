@@ -12,25 +12,6 @@ const store = new Vuex.Store({
   modules: {
     tracks: tracksStore,
     track: currentTrackStore
-  },
-
-  getters: {
-    getCurrentTrack(state) {
-      return state.track.value;
-    },
-
-    getCurrentTrackSource(state, { getCurrentTrack }) {
-      let currentTrack = getCurrentTrack;
-      return currentTrack && currentTrack.source;
-    },
-
-    getAllTracks(state) {
-      return state.tracks.value;
-    },
-
-    getTrackById(state, { getAllTracks }) {
-      return (trackId) => getAllTracks.find((track) => track.id === trackId);
-    }
   }
 });
 

@@ -1,6 +1,8 @@
 import api from '../api/services.js'
 
 export default  {
+  namespaced: true,
+
   state: {
     value: []
   },
@@ -23,4 +25,14 @@ export default  {
       });
     }
   },
+
+  getters: {
+    getAllTracks(state) {
+      return state.value;
+    },
+
+    getTrackById(state, { getAllTracks }) {
+      return (trackId) => getAllTracks.find((track) => track.id === trackId);
+    }
+  }
 };

@@ -17,7 +17,7 @@
 
     methods: {
       onClick() {
-        this.$store.dispatch('startTrack', this.track.id);
+        this.$store.dispatch('track/startTrack', this.track.id);
       }
     }
   });

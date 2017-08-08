@@ -1,9 +1,9 @@
 <template xmlns:v-on="http://www.w3.org/1999/xhtml">
   <div>
     <h3>{{ headerText }}</h3>
-    <track-list :tracks="tracks"></track-list>
+    <track-list v-bind:tracks="tracks"></track-list>
     <player></player>
-    <button @click="addTrack"></button>
+    <button v-on:click="addTrack"></button>
   </div>
 </template>
 
@@ -22,13 +22,13 @@
 
 
     created() {
-      this.$store.dispatch('loadTracks');
+      this.$store.dispatch('tracks/loadTracks');
     },
 
 
     methods: {
       addTrack() {
-        this.$store.commit('addTrack');
+        this.$store.commit('tracks/addTrack');
       }
     },
 
