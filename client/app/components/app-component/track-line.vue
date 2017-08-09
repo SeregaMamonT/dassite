@@ -39,12 +39,12 @@
   }
 
   .artist {
-    width: 300px;
+    width: 350px;
     display: inline-block;
   }
 
   .title {
-    width: 300px;
+    width: 350px;
     display: inline-block;
   }
 </style>

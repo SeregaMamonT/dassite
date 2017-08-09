@@ -1,10 +1,13 @@
 <template xmlns:v-on="http://www.w3.org/1999/xhtml">
   <div v-if="track" class="root">
+    <hr/>
     <button v-on:click="onPlayClick" class="line">
       {{ isPlaying ? '||' : '>' }}
     </button>
     <div class="artist">{{ track.artist }}</div>
     <div class="title">{{ track.title }}</div>
+    <div class="time">{{ timeStr }}</div>
+    <hr/>
   </div>
 </template>
 
@@ -16,7 +19,9 @@
     data() {
       return {
         audio: new Audio(),
-        isPlaying: false
+        isPlaying: false,
+        time: 0,
+        timeChecker: null
       };
     },
 
@@ -25,7 +30,11 @@
       ...mapGetters({
         track: 'track/getCurrentTrack',
         trackSource: 'track/getCurrentTrackSource'
-      })
+      }),
+
+      timeStr() {
+        return this.formatTime(this.time);
+      }
     },
 
 
@@ -37,11 +46,24 @@
       play() {
         this.audio.play();
         this.isPlaying = true;
+
+        if (this.timeChecker) {
+          clearInterval(this.timeChecker);
+        }
+        this.timeChecker = setInterval(() => { this.time = ~~this.audio.currentTime}, 200);
       },
 
       pause() {
         this.audio.pause();
         this.isPlaying = false;
+      },
+
+      formatTime(time) {
+        let min = Math.floor(time / 60);
+        let sec = time % 60;
+        sec = sec > 9 ? sec : '0' + sec;
+
+        return min + ":" + sec;
       }
     },
 
@@ -69,13 +91,19 @@
   }
 
   .artist {
-    width: 300px;
+    width: 350px;
     display: inline-block;
   }
 
   .title {
-    width: 300px;
+    width: 350px;
     display: inline-block;
   }
+
+  .time {
+    width: 50px;
+    display: inline-block;
+  }
+
 
 </style>
