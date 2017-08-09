@@ -15,6 +15,8 @@
   import Vue from 'vue';
   import { mapGetters } from 'vuex';
 
+  import { formatTime } from '../utils/time'
+
   export default Vue.extend({
     data() {
       return {
@@ -33,7 +35,7 @@
       }),
 
       timeStr() {
-        return this.formatTime(this.time);
+        return formatTime(this.time);
       }
     },
 
@@ -47,10 +49,7 @@
         this.audio.play();
         this.isPlaying = true;
 
-        if (this.timeChecker) {
-          clearInterval(this.timeChecker);
-        }
-        this.timeChecker = setInterval(() => { this.time = ~~this.audio.currentTime}, 200);
+        this.resetTimeChecker();
       },
 
       pause() {
@@ -58,13 +57,14 @@
         this.isPlaying = false;
       },
 
-      formatTime(time) {
-        let min = Math.floor(time / 60);
-        let sec = time % 60;
-        sec = sec > 9 ? sec : '0' + sec;
+      resetTimeChecker() {
+        this.timeChecker && clearInterval(this.timeChecker);
+        this.timeChecker = setInterval(this.checkTime, 200);
+      },
 
-        return min + ":" + sec;
-      }
+      checkTime() {
+        this.time = ~~this.audio.currentTime
+      },
     },
 
 

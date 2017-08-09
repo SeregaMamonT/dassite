@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import AppComponent from './components/app-component/app-component.vue';
+import AppComponent from './components/app-component.vue';
 
 import tracksStore from './stores/tracksStore.js'
 import currentTrackStore from './stores/currentTrackStore.js'
