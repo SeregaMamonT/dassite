@@ -6,7 +6,7 @@
     </button>
     <div class="artist">{{ track.artist }}</div>
     <div class="title">{{ track.title }}</div>
-    <div class="time">{{ timeStr }}</div>
+    <div class="time">{{ formatTime(time) }}</div>
     <hr/>
   </div>
 </template>
@@ -32,11 +32,7 @@
       ...mapGetters({
         track: 'track/getCurrentTrack',
         trackSource: 'track/getCurrentTrackSource'
-      }),
-
-      timeStr() {
-        return formatTime(this.time);
-      }
+      })
     },
 
 
@@ -65,6 +61,8 @@
       checkTime() {
         this.time = ~~this.audio.currentTime
       },
+
+      formatTime: formatTime
     },
 
 
