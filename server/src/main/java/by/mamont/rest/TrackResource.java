@@ -20,18 +20,15 @@ import java.util.List;
 @Path("tracks")
 public class TrackResource
 {
-  private List<Track> tracks = new LinkedList<>();
-  @Context
-  ServletContext context;
+  @Context ServletContext context;
 
+  private static final List<Track> tracks = new LinkedList<>();
 
-  public TrackResource()
-  {
+  static {
     tracks.add(createTrack(0, "Akute", "Ctrl"));
     tracks.add(createTrack(1, "Neuro Dubel", "tut.by"));
     tracks.add(createTrack(2, "Akute", "Naskroz"));
   }
-
 
   @GET
   @Path("all")
@@ -108,7 +105,7 @@ public class TrackResource
   }
 
 
-  private Track createTrack(int id, String singer, String title)
+  private static Track createTrack(int id, String singer, String title)
   {
     Track track = new Track();
     track.setId(id);

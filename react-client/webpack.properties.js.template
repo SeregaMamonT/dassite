@@ -1,0 +1,4 @@
+module.exports = {
+  // Custom output.path
+  // outputPath: 'd:/app/apache-tomcat/webapps/my-app'
+};

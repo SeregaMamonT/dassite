@@ -4,7 +4,11 @@
     <track-filter></track-filter>
     <track-list v-bind:tracks="tracks"></track-list>
     <player></player>
-    <button v-on:click="addTrack"></button>
+
+    <div class="footer">
+      <button v-on:click="addTrack"></button>
+      <a href="admin.html">admin</a>
+    </div>
   </div>
 </template>
 
@@ -58,6 +62,9 @@
   button {
     width: 80px;
     height: 20px;
+  }
+
+  .footer {
     position: absolute;
     bottom: 0;
   }
