@@ -20,10 +20,7 @@ const mapDispatchToProps = {
   submit: (form, result) => {
     return {
       type: "HANDLE_RESPONSE",
-      value: {
-        form,
-        result
-      }
+      value: result
     };
   }
 };

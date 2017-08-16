@@ -1,10 +1,14 @@
 export default (state = {}, action) => {
   switch (action.type) {
     case 'HANDLE_RESPONSE':
-      const value = action.value;
       return {
-        ...value.form,
-        resultValue: value.result
+        ...state,
+        resultValue: action.value
+      };
+    case "CHANGE_FUNCTION":
+      return {
+        ...state,
+        functionSelector: action.value
       };
     default:
       return state;

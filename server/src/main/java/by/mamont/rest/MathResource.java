@@ -17,4 +17,13 @@ public class MathResource
   {
     return number * number;
   }
+
+
+  @GET
+  @Path("power/{base}/{exponent}")
+  @Produces(MediaType.TEXT_PLAIN)
+  public double square(@PathParam("base") int base, @PathParam("exponent") int exponent)
+  {
+    return Math.pow(base, exponent);
+  }
 }
