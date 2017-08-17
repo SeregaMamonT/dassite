@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { reduxForm } from 'redux-form';
+import { reduxForm, formValueSelector } from 'redux-form';
 
 import TextField from './components/TextField.jsx';
 import Label from './components/Label.jsx';
@@ -52,7 +52,7 @@ class Form extends React.Component {
     ];
     return (
       <div style={{ display: "flex", flexDirection: "column"}}>
-        <ComboBox name="functionSelector" values={functionEnum}/>
+        <ComboBox name="functionSelector" values={functionEnum} onChange={this.props.onChangeFunc}/>
 
         { this.renderFunction(model.functionSelector) }
 
@@ -66,12 +66,56 @@ class Form extends React.Component {
   };
 }
 
+Form = reduxForm({form: "contact"})(Form);
+const selector = formValueSelector("contact");
 
 const mapStateToProps = (state) => {
-  return { initialValues: state.formModel, enableReinitialize: true };
+  return {
+    initialValues: state.formModel,
+    enableReinitialize: true,
+    functionSelector: selector(state, "functionSelector")
+  };
 };
-
-Form = reduxForm({form: "contact"})(Form);
 Form = connect(mapStateToProps)(Form);
 
-export default Form;
+
+
+class FormContainer extends React.Component {
+  constructor() {
+    super();
+  }
+
+  render() {
+    return (
+      <Form onSubmit={(value) => {
+        fetch("rest/math/square/" + value.inputValue)
+          .then(res => res.text())
+          .then(text => {
+            this.props.submit(value, text);
+          });
+      }}
+            onChangeFunc={(event, value) => this.props.changeFunc(value)}
+      />
+    );
+  }
+}
+
+
+
+const mapDispatchToProps = {
+  submit: (form, result) => {
+    return {
+      type: "HANDLE_RESPONSE",
+      value: result
+    };
+  },
+
+  changeFunc: (func) => {
+    return {
+      type: "CHANGE_FUNCTION",
+      value: func
+    }
+  }
+};
+
+export default connect(null, mapDispatchToProps)(FormContainer);
