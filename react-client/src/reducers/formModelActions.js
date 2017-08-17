@@ -1,13 +1,18 @@
-export const submit = (form, result) => {
+export const ActionType = {
+  HANDLE_RESPONSE: 'FunctionForm.HANDLE_RESPONSE',
+  CHANGE_FUNCTION: 'FunctionForm.CHANGE_FUNCTION'
+};
+
+export const handleResult = (form, result) => {
   return {
-    type: "HANDLE_RESPONSE",
+    type: ActionType.HANDLE_RESPONSE,
     value: { form, result }
   };
 };
 
-export const changeFunc = (func) => {
+export const changeFunction = (func) => {
   return {
-    type: "CHANGE_FUNCTION",
+    type: ActionType.CHANGE_FUNCTION,
     value: func
   }
 };

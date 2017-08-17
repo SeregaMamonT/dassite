@@ -1,16 +1,21 @@
+import { ActionType } from './formModelActions';
+
 export default (state = {}, action) => {
   switch (action.type) {
-    case 'HANDLE_RESPONSE':
+    case ActionType.HANDLE_RESPONSE:
       const { form, result } = action.value;
       return {
         ...form,
-        resultValue: result
+        result: result
       };
-    case "CHANGE_FUNCTION":
+
+    case ActionType.CHANGE_FUNCTION:
       return {
         ...state,
-        functionSelector: action.value
+        functionSelector: action.value,
+        result: undefined
       };
+
     default:
       return state;
   }

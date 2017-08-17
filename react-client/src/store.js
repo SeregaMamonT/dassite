@@ -3,7 +3,9 @@ import reducer from './reducers/reducer.js';
 
 const initialState = {
   formModel: {
-    inputValue: 3,
+    number: 3,
+    base: 2,
+    exponent: 5,
     functionSelector: "power"
   }
 };

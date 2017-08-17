@@ -6,7 +6,7 @@ import TextField from './components/TextField.jsx';
 import Label from './components/Label.jsx';
 import ComboBox from './components/ComboBox.jsx';
 
-import { submit, changeFunc } from './reducers/formModelActions';
+import { handleResult, changeFunction } from './reducers/formModelActions';
 import api from './api/index.js';
 
 class Form extends React.Component {
@@ -22,7 +22,7 @@ class Form extends React.Component {
     return (
       <div style={{ display: "flex" }}>
         <Label text="Number:"/>
-        <TextField name="inputValue"/>
+        <TextField name="number"/>
       </div>
     );
   }
@@ -54,15 +54,15 @@ class Form extends React.Component {
       { code: "power", description: "Power"},
     ];
     return (
-      <div style={{ display: "flex", flexDirection: "column"}}>
-        <ComboBox name="functionSelector" values={functionEnum} onChange={this.props.onChangeFunc}/>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center"}}>
+        <ComboBox name="functionSelector" values={functionEnum} onChange={this.props.onFunctionChanged}/>
 
         { this.renderFunction(this.props.functionSelector) }
 
         <button style={{ width: "250px" }} onClick={this.props.handleSubmit}>Calculate</button>
         <div style={{ display: "flex" }}>
           <Label text="Result:"/>
-          <Label text={model.resultValue || "Undefined"}/>
+          <Label text={model.result || "Undefined"}/>
         </div>
       </div>
     );
@@ -81,7 +81,7 @@ const mapStateToProps = (state) => {
 };
 Form = connect(mapStateToProps)(Form);
 
-
+// Container for form manipulation
 
 class FormContainer extends React.Component {
   constructor() {
@@ -90,15 +90,17 @@ class FormContainer extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit(value) {
-    switch (value.functionSelector) {
+  handleSubmit(form) {
+    const { handleResult } = this.props;
+
+    switch (form.functionSelector) {
       case 'square':
-        api.math.fetchSquare(value.inputValue)
-          .then(result => this.props.submit(value, result));
+        api.math.fetchSquare(form.number)
+          .then(result => handleResult(form, result));
         return;
       case 'power':
-        api.math.fetchPower(value.base, value.exponent)
-          .then(result => this.props.submit(value, result));
+        api.math.fetchPower(form.base, form.exponent)
+          .then(result => handleResult(form, result));
         return;
     }
   }
@@ -107,12 +109,13 @@ class FormContainer extends React.Component {
     return (
       <Form
         onSubmit={this.handleSubmit}
+        onFunctionChanged={(e, value, oldValue) => this.props.changeFunction(value)}
       />
     );
   }
 }
 
 
-const mapDispatchToProps = { submit, changeFunc };
+const mapDispatchToProps = { handleResult, changeFunction };
 
 export default connect(null, mapDispatchToProps)(FormContainer);
