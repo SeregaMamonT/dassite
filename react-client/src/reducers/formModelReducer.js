@@ -12,7 +12,7 @@ export default (state = {}, action) => {
     case ActionType.CHANGE_FUNCTION:
       return {
         ...state,
-        functionSelector: action.value,
+        functionCode: action.value,
         result: undefined
       };
 

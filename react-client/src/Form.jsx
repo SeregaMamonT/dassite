@@ -7,6 +7,7 @@ import Label from './components/Label.jsx';
 import ComboBox from './components/ComboBox.jsx';
 
 import { handleResult, changeFunction } from './reducers/formModelActions';
+import FunctionEnum from './enums/function';
 import api from './api/index.js';
 
 class Form extends React.Component {
@@ -49,15 +50,12 @@ class Form extends React.Component {
 
   render() {
     const model = this.props.initialValues;
-    const functionEnum = [
-      { code: "square", description: "Square"},
-      { code: "power", description: "Power"},
-    ];
+
     return (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center"}}>
-        <ComboBox name="functionSelector" values={functionEnum} onChange={this.props.onFunctionChanged}/>
+        <ComboBox name="functionCode" enumeration={FunctionEnum} onChange={this.props.onFunctionChanged}/>
 
-        { this.renderFunction(this.props.functionSelector) }
+        { this.renderFunction(this.props.functionCode) }
 
         <button style={{ width: "250px" }} onClick={this.props.handleSubmit}>Calculate</button>
         <div style={{ display: "flex" }}>
@@ -69,14 +67,14 @@ class Form extends React.Component {
   };
 }
 
-Form = reduxForm({form: "contact"})(Form);
-const selector = formValueSelector("contact");
+Form = reduxForm({form: "function-form"})(Form);
+const selector = formValueSelector("function-form");
 
 const mapStateToProps = (state) => {
   return {
     initialValues: state.formModel,
     enableReinitialize: true,
-    functionSelector: selector(state, "functionSelector")
+    functionCode: selector(state, "functionCode")
   };
 };
 Form = connect(mapStateToProps)(Form);
@@ -93,7 +91,7 @@ class FormContainer extends React.Component {
   handleSubmit(form) {
     const { handleResult } = this.props;
 
-    switch (form.functionSelector) {
+    switch (form.functionCode) {
       case 'square':
         api.math.fetchSquare(form.number)
           .then(result => handleResult(form, result));
