@@ -6,6 +6,9 @@ import TextField from './components/TextField.jsx';
 import Label from './components/Label.jsx';
 import ComboBox from './components/ComboBox.jsx';
 
+import { submit, changeFunc } from './reducers/formModelActions';
+import api from './api/index.js';
+
 class Form extends React.Component {
   constructor() {
     super();
@@ -54,7 +57,7 @@ class Form extends React.Component {
       <div style={{ display: "flex", flexDirection: "column"}}>
         <ComboBox name="functionSelector" values={functionEnum} onChange={this.props.onChangeFunc}/>
 
-        { this.renderFunction(model.functionSelector) }
+        { this.renderFunction(this.props.functionSelector) }
 
         <button style={{ width: "250px" }} onClick={this.props.handleSubmit}>Calculate</button>
         <div style={{ display: "flex" }}>
@@ -83,39 +86,33 @@ Form = connect(mapStateToProps)(Form);
 class FormContainer extends React.Component {
   constructor() {
     super();
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit(value) {
+    switch (value.functionSelector) {
+      case 'square':
+        api.math.fetchSquare(value.inputValue)
+          .then(result => this.props.submit(result));
+        return;
+      case 'power':
+        api.math.fetchPower(value.base, value.exponent)
+          .then(result => this.props.submit(result));
+        return;
+    }
   }
 
   render() {
     return (
-      <Form onSubmit={(value) => {
-        fetch("rest/math/square/" + value.inputValue)
-          .then(res => res.text())
-          .then(text => {
-            this.props.submit(value, text);
-          });
-      }}
-            onChangeFunc={(event, value) => this.props.changeFunc(value)}
+      <Form
+        onSubmit={this.handleSubmit}
       />
     );
   }
 }
 
 
-
-const mapDispatchToProps = {
-  submit: (form, result) => {
-    return {
-      type: "HANDLE_RESPONSE",
-      value: result
-    };
-  },
-
-  changeFunc: (func) => {
-    return {
-      type: "CHANGE_FUNCTION",
-      value: func
-    }
-  }
-};
+const mapDispatchToProps = { submit, changeFunc };
 
 export default connect(null, mapDispatchToProps)(FormContainer);
