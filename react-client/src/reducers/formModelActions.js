@@ -1,7 +1,7 @@
-export const submit = (result) => {
+export const submit = (form, result) => {
   return {
     type: "HANDLE_RESPONSE",
-    value: result
+    value: { form, result }
   };
 };
 

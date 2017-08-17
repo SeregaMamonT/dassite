@@ -94,11 +94,11 @@ class FormContainer extends React.Component {
     switch (value.functionSelector) {
       case 'square':
         api.math.fetchSquare(value.inputValue)
-          .then(result => this.props.submit(result));
+          .then(result => this.props.submit(value, result));
         return;
       case 'power':
         api.math.fetchPower(value.base, value.exponent)
-          .then(result => this.props.submit(result));
+          .then(result => this.props.submit(value, result));
         return;
     }
   }
