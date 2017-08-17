@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, formValueSelector } from 'redux-form';
 
+import { Flex } from 'grid-styled';
+
 import TextField from './components/TextField.jsx';
 import Label from './components/Label.jsx';
 import ComboBox from './components/ComboBox.jsx';
@@ -21,21 +23,21 @@ class Form extends React.Component {
 
   renderSquare() {
     return (
-      <div style={{ display: "flex" }}>
+      <Flex>
         <Label text="Number:"/>
         <TextField name="number"/>
-      </div>
+      </Flex>
     );
   }
 
   renderPower() {
     return (
-      <div style={{ display: "flex" }}>
+      <Flex>
         <Label text="Base:"/>
         <TextField name="base"/>
         <Label text="Exponent:"/>
         <TextField name="exponent"/>
-      </div>
+      </Flex>
     );
   }
 
@@ -52,17 +54,17 @@ class Form extends React.Component {
     const model = this.props.initialValues;
 
     return (
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center"}}>
+      <Flex direction="column" align="center">
         <ComboBox name="functionCode" enumeration={FunctionEnum} onChange={this.props.onFunctionChanged}/>
 
         { this.renderFunction(this.props.functionCode) }
 
         <button style={{ width: "250px" }} onClick={this.props.handleSubmit}>Calculate</button>
-        <div style={{ display: "flex" }}>
+        <Flex>
           <Label text="Result:"/>
           <Label text={model.result || "Undefined"}/>
-        </div>
-      </div>
+        </Flex>
+      </Flex>
     );
   };
 }
