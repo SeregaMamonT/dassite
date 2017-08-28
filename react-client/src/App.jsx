@@ -1,10 +1,10 @@
 import React from 'react';
 
-import Form from './Form.jsx';
 import FormContainer from './FormContainer.jsx';
+import FunctionForm from './forms/FunctionForm.jsx';
 
 const App = () => {
-  let someFunctionalForm = Form;
+  let someFunctionalForm = FunctionForm;
 
   return <FormContainer form={someFunctionalForm}/>;
 };
