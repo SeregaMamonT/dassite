@@ -2,11 +2,11 @@ import React from 'react';
 
 import { Flex } from 'grid-styled';
 
-import TextField from '../components/TextField.jsx';
-import Label from '../components/Label.jsx';
-import ComboBox from '../components/ComboBox.jsx';
+import TextField from 'components/TextField.jsx';
+import Label from 'components/Label.jsx';
+import ComboBox from 'components/ComboBox.jsx';
 
-import FunctionEnum from '../enums/function';
+import FunctionEnum from 'enums/function';
 
 class FunctionForm extends React.Component {
   constructor() {

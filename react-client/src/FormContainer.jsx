@@ -2,15 +2,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 
-import { changeValues } from './reducers/formModelActions';
-import api from './api/index.js';
+import { changeValues } from 'reducers/formModelActions';
+import api from 'api/index.js';
 
-function connectRedux(Form) {
+function connectRedux(Form, controller) {
   Form = reduxForm({form: "function-form"})(Form);
 
   const mapStateToProps = (state) => {
     return {
-      initialValues: state.formModel,
+      initialValues: {
+        ...controller.defaultValues(),
+        ...state.formModel
+      },
       enableReinitialize: true,
     };
   };
@@ -40,13 +43,13 @@ class FormContainer extends React.Component {
   }
 
   render() {
-    const FunctionalForm = connectRedux(this.props.form);
+    const { form, controller } = this.props;
+    const FunctionalForm = connectRedux(form, controller);
 
     return (
       <FunctionalForm
         onSubmit={this.handleSubmit}
         controller={this.handleChangeValues}
-        formValue={this.props.formValue}
       />
     );
   }

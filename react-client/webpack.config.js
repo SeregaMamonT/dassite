@@ -14,6 +14,11 @@ module.exports = {
     filename: 'react-bundle.js'
   },
 
+  resolve: {
+    modules: [path.resolve(__dirname, "src"), "node_modules"],
+    extensions: ['.js', '.jsx']
+  },
+
   module: {
     loaders: [
       {
