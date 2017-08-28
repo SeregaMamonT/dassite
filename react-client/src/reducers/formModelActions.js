@@ -1,13 +1,6 @@
 export const ActionType = {
-  HANDLE_RESPONSE: 'FunctionForm.HANDLE_RESPONSE',
-  CHANGE_VALUES: 'FunctionForm.CHANGE_VALUES'
-};
-
-export const handleResult = (form, result) => {
-  return {
-    type: ActionType.HANDLE_RESPONSE,
-    value: { form, result }
-  };
+  HANDLE_RESPONSE: 'Form.HANDLE_RESPONSE',
+  CHANGE_VALUES: 'Form.CHANGE_VALUES'
 };
 
 export const changeValues = (newValues) => {

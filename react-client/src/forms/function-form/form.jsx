@@ -8,7 +8,7 @@ import ComboBox from 'components/ComboBox.jsx';
 
 import FunctionEnum from 'enums/function';
 
-class FunctionForm extends React.Component {
+class Form extends React.Component {
   constructor() {
     super();
 
@@ -66,4 +66,4 @@ class FunctionForm extends React.Component {
   };
 }
 
-export default FunctionForm;
+export default Form;
