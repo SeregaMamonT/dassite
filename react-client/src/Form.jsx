@@ -1,6 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { reduxForm } from 'redux-form';
 
 import { Flex } from 'grid-styled';
 
@@ -8,9 +6,7 @@ import TextField from './components/TextField.jsx';
 import Label from './components/Label.jsx';
 import ComboBox from './components/ComboBox.jsx';
 
-import { changeValues } from './reducers/formModelActions';
 import FunctionEnum from './enums/function';
-import api from './api/index.js';
 
 class Form extends React.Component {
   constructor() {
@@ -78,53 +74,4 @@ class Form extends React.Component {
   };
 }
 
-Form = reduxForm({form: "function-form"})(Form);
-
-const mapStateToProps = (state, ownProps) => {
-  return {
-    initialValues: ownProps.formValue,
-    initialValues: state.formModel,
-    enableReinitialize: true,
-  };
-};
-Form = connect(mapStateToProps)(Form);
-
-// Container for form manipulation
-
-class FormContainer extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChangeValues = this.handleChangeValues.bind(this);
-  }
-
-  handleSubmit(form) {
-    const { changeValues } = this.props;
-
-    api.math.post(form).then(result => changeValues(result));
-  }
-
-  handleChangeValues(controller) {
-    const changeValues = this.props.changeValues;
-    return function() {
-      const values = controller.apply(null, arguments);
-      changeValues(values);
-    };
-  }
-
-  render() {
-    return (
-      <Form
-        onSubmit={this.handleSubmit}
-        controller={this.handleChangeValues}
-        formValue={this.props.formValue}
-      />
-    );
-  }
-}
-
-
-const mapDispatchToProps = { changeValues };
-
-export default connect(null, mapDispatchToProps)(FormContainer);
+export default Form;
