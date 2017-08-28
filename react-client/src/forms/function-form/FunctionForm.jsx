@@ -15,7 +15,6 @@ class FunctionForm extends React.Component {
     this.renderSquare = this.renderSquare.bind(this);
     this.renderPower = this.renderPower.bind(this);
     this.renderFunction = this.renderFunction.bind(this);
-    this.onChangeFunction = this.onChangeFunction.bind(this);
   }
 
   renderSquare() {
@@ -47,20 +46,13 @@ class FunctionForm extends React.Component {
     }
   }
 
-  onChangeFunction(event, value) {
-    return {
-      functionCode: value,
-      result: undefined
-    };
-  }
-
   render() {
     const model = this.props.initialValues;
-    const { controller } = this.props;
+    const { handlers } = this.props;
 
     return (
       <Flex direction="column" align="center">
-        <ComboBox name="functionCode" enumeration={FunctionEnum} onChange={controller(this.onChangeFunction)}/>
+        <ComboBox name="functionCode" enumeration={FunctionEnum} onChange={handlers.onChangeFunction}/>
 
         { this.renderFunction(model.functionCode) }
 

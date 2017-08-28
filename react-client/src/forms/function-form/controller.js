@@ -9,4 +9,13 @@ export default {
       functionCode: FunctionEnum.POWER.code
     }
   },
+
+  handlers: {
+    onChangeFunction(event, value) {
+      return {
+        functionCode: value,
+        result: undefined
+      };
+    }
+  }
 };

@@ -26,6 +26,7 @@ class FormContainer extends React.Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChangeValues = this.handleChangeValues.bind(this);
+    this.mapHandlers = this.mapHandlers.bind(this);
   }
 
   handleSubmit(form) {
@@ -42,6 +43,15 @@ class FormContainer extends React.Component {
     };
   }
 
+  mapHandlers(handlers) {
+    const mappedHandlers = {};
+    Object.keys(handlers).forEach(handlerName => {
+      let handler = handlers[handlerName];
+      mappedHandlers[handlerName] = this.handleChangeValues(handler);
+    });
+    return mappedHandlers;
+  }
+
   render() {
     const { form, controller } = this.props;
     const FunctionalForm = connectRedux(form, controller);
@@ -49,7 +59,7 @@ class FormContainer extends React.Component {
     return (
       <FunctionalForm
         onSubmit={this.handleSubmit}
-        controller={this.handleChangeValues}
+        handlers={this.mapHandlers(controller.handlers)}
       />
     );
   }
