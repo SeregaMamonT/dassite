@@ -9,11 +9,10 @@ export default (state = {}, action) => {
         result: result
       };
 
-    case ActionType.CHANGE_FUNCTION:
+    case ActionType.CHANGE_VALUES:
       return {
         ...state,
-        functionCode: action.value,
-        result: undefined
+        ...action.newValues,
       };
 
     default:

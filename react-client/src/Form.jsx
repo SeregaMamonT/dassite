@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { reduxForm, formValueSelector } from 'redux-form';
+import { reduxForm } from 'redux-form';
 
 import { Flex } from 'grid-styled';
 
@@ -8,7 +8,7 @@ import TextField from './components/TextField.jsx';
 import Label from './components/Label.jsx';
 import ComboBox from './components/ComboBox.jsx';
 
-import { handleResult, changeFunction } from './reducers/formModelActions';
+import { changeValues } from './reducers/formModelActions';
 import FunctionEnum from './enums/function';
 import api from './api/index.js';
 
@@ -19,6 +19,7 @@ class Form extends React.Component {
     this.renderSquare = this.renderSquare.bind(this);
     this.renderPower = this.renderPower.bind(this);
     this.renderFunction = this.renderFunction.bind(this);
+    this.onChangeFunction = this.onChangeFunction.bind(this);
   }
 
   renderSquare() {
@@ -50,14 +51,22 @@ class Form extends React.Component {
     }
   }
 
+  onChangeFunction(event, value) {
+    return {
+      functionCode: value,
+      result: undefined
+    };
+  }
+
   render() {
     const model = this.props.initialValues;
+    const { controller } = this.props;
 
     return (
       <Flex direction="column" align="center">
-        <ComboBox name="functionCode" enumeration={FunctionEnum} onChange={this.props.onFunctionChanged}/>
+        <ComboBox name="functionCode" enumeration={FunctionEnum} onChange={controller(this.onChangeFunction)}/>
 
-        { this.renderFunction(this.props.functionCode) }
+        { this.renderFunction(model.functionCode) }
 
         <button style={{ width: "250px" }} onClick={this.props.handleSubmit}>Calculate</button>
         <Flex>
@@ -70,13 +79,12 @@ class Form extends React.Component {
 }
 
 Form = reduxForm({form: "function-form"})(Form);
-const selector = formValueSelector("function-form");
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   return {
+    initialValues: ownProps.formValue,
     initialValues: state.formModel,
     enableReinitialize: true,
-    functionCode: selector(state, "functionCode")
   };
 };
 Form = connect(mapStateToProps)(Form);
@@ -84,38 +92,39 @@ Form = connect(mapStateToProps)(Form);
 // Container for form manipulation
 
 class FormContainer extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChangeValues = this.handleChangeValues.bind(this);
   }
 
   handleSubmit(form) {
-    const { handleResult } = this.props;
+    const { changeValues } = this.props;
 
-    switch (form.functionCode) {
-      case 'square':
-        api.math.fetchSquare(form.number)
-          .then(result => handleResult(form, result));
-        return;
-      case 'power':
-        api.math.fetchPower(form.base, form.exponent)
-          .then(result => handleResult(form, result));
-        return;
-    }
+    api.math.post(form).then(result => changeValues(result));
+  }
+
+  handleChangeValues(controller) {
+    const changeValues = this.props.changeValues;
+    return function() {
+      const values = controller.apply(null, arguments);
+      changeValues(values);
+    };
   }
 
   render() {
     return (
       <Form
         onSubmit={this.handleSubmit}
-        onFunctionChanged={(e, value, oldValue) => this.props.changeFunction(value)}
+        controller={this.handleChangeValues}
+        formValue={this.props.formValue}
       />
     );
   }
 }
 
 
-const mapDispatchToProps = { handleResult, changeFunction };
+const mapDispatchToProps = { changeValues };
 
 export default connect(null, mapDispatchToProps)(FormContainer);

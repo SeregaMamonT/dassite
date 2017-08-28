@@ -1,6 +1,6 @@
 export const ActionType = {
   HANDLE_RESPONSE: 'FunctionForm.HANDLE_RESPONSE',
-  CHANGE_FUNCTION: 'FunctionForm.CHANGE_FUNCTION'
+  CHANGE_VALUES: 'FunctionForm.CHANGE_VALUES'
 };
 
 export const handleResult = (form, result) => {
@@ -10,9 +10,9 @@ export const handleResult = (form, result) => {
   };
 };
 
-export const changeFunction = (func) => {
+export const changeValues = (newValues) => {
   return {
-    type: ActionType.CHANGE_FUNCTION,
-    value: func
+    type: ActionType.CHANGE_VALUES,
+    newValues
   }
 };

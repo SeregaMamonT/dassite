@@ -1,9 +1,15 @@
 import React from 'react';
-
+import { connect } from 'react-redux';
 import FormContainer from './Form.jsx';
 
-const App = () => {
-  return <FormContainer />;
+const App = (props) => {
+  return <FormContainer formValue={props.formValue}/>;
 };
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    formValue: state.formModel
+  }
+};
+
+export default connect(mapStateToProps)(App);
