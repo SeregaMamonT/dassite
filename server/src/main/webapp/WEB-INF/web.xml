@@ -22,4 +22,8 @@
         <servlet-name>rest</servlet-name>
         <url-pattern>/rest/*</url-pattern>
     </servlet-mapping>
+
+    <listener>
+        <listener-class>by.mamont.technical.StartupShutdownListener</listener-class>
+    </listener>
 </web-app>

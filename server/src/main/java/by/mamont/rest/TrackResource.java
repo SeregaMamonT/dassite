@@ -1,6 +1,9 @@
 package by.mamont.rest;
 
 import by.mamont.entity.Track;
+import by.mamont.technical.Database;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import javax.servlet.ServletContext;
 import javax.ws.rs.GET;
@@ -13,7 +16,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Base64;
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -22,30 +25,39 @@ public class TrackResource
 {
   @Context ServletContext context;
 
-  private static final List<Track> tracks = new LinkedList<>();
-
-  static {
-    tracks.add(createTrack(0, "Akute", "Ctrl"));
-    tracks.add(createTrack(1, "Neuro Dubel", "tut.by"));
-    tracks.add(createTrack(2, "Akute", "Naskroz"));
-  }
+  private static List<Track> tracks;
 
   @GET
   @Path("all")
   @Produces(MediaType.APPLICATION_JSON)
   public List<Track> getTracks()
   {
+    if (tracks == null) {
+      readTracks();
+    }
     return tracks;
+  }
+
+
+  private void readTracks()
+  {
+    try (Session session = Database.getSession()) {
+      Transaction transaction = session.beginTransaction();
+      tracks = session.createQuery("FROM track", Track.class).list();
+      transaction.commit();
+    }
+    catch (Exception ex) {
+      tracks = Collections.emptyList();
+    }
   }
 
 
   @GET
   @Path("info/{id}")
   @Produces(MediaType.APPLICATION_JSON)
-  public Track getTrack(@PathParam("id") String id)
+  public Track getTrack(@PathParam("id") int id)
   {
-    int index = Integer.parseInt(id);
-    return tracks.get(index);
+    return tracks.get(id);
   }
 
 
@@ -102,15 +114,5 @@ public class TrackResource
   private String resolveTrackName(String id)
   {
     return "track" + id + ".mp3";
-  }
-
-
-  private static Track createTrack(int id, String singer, String title)
-  {
-    Track track = new Track();
-    track.setId(id);
-    track.setArtist(singer);
-    track.setTitle(title);
-    return track;
   }
 }
